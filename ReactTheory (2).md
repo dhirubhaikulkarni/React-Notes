@@ -111,6 +111,16 @@ Class component:
 1) It must have the render() method returning JSX (which is syntactically similar to HTML)
 2) The class component is instantiated and different life cycle method is kept alive and is run and invoked depending on the phase of the class component.
 3) Constructor is used as it needs to store state.
+4) Life Cycle method is:
+    - A) Mounting - componentDidMount()
+    - B) Updating - componentDidUpdate()
+    - C) Unmount - componentWillUnmount()
+    - D) Error Handling - componentWillUnmount()
+5) There are three categories of lifecycle methods: mounting, updating, and unmounting.
+      - A component “mounts” when it renders for the first time. This is when mounting lifecycle methods get called.
+      - The first time that a component instance renders, it does not update. Starting with the second render, a component updates every time that it renders.
+      - A component’s unmounting period occurs when the component is removed from the DOM. This could happen if the DOM is rerendered without the component, or if the user navigates to a different website or closes their web browser.
+
 
 ## 8. What is the virtual DOM? How does react use the virtual DOM to render the UI?
 
@@ -278,7 +288,9 @@ There are many ways through which one can optimize the performance of a React ap
 
     ### When do we need a Higher Order Component?
 
-    - While developing React applications, we might develop components that are quite similar to each other with minute differences. In most cases, developing similar components might not be an issue but, while developing larger applications we need to keep our code DRY, therefore, we want an abstraction that allows us to define this logic in a single place and share it across components. HOC allows us to create that abstraction.
+    - While developing React applications, we might develop components that are quite similar to each other with minute differences. 
+    - In most cases, developing similar components might not be an issue but, while developing larger applications we need to keep our code DRY, therefore, we want an abstraction that allows us to define this logic in a single place and share it across components. 
+    - HOC allows us to create that abstraction.
 
 ## 20. What are the different phases of the component lifecycle?
 
@@ -549,7 +561,8 @@ doSomethingAsync(callbackFunction);
 5) The useCallback Hook only runs when one of its dependencies update.
 6) This can improve performance.
 7) One reason to use useCallback is to prevent a component from re-rendering unless its props have changed.
-8) Syntax:
+8) any,all,race,finally
+9) Syntax:
 function myDisplayer(some) {
   document.getElementById("demo").innerHTML = some;
 }
@@ -757,6 +770,43 @@ Optimization Scenario:
   - Classes
   - Promises
 
+## 62. What is Throttling?
+- Throttling is used to call a function after every millisecond or a particular interval of time only the first click is executed immediately.
+- Without throttling, a function may be invoked rapidly, leading to performance issues, unnecessary resource consumption, and a potentially poor user experience.
+- Example 
+
+const updateThrottleText = throttle((text)=> let data = "Hello Dhiru")
+
+function throttle(cb, delay = 1000) {
+    let shouldWait = false
+    let waitingArgs
+    const timeoutFunc = () => {
+        if (waitingArgs == null) {
+            shouldWait = false
+        } else {
+            cb(...waitingArgs)
+            waitingArgs = null
+            setTimeout(timeoutFunc, delay)
+        }
+    }
+
+    return (...args) => {
+        if (shouldWait) {
+            waitingArgs = args
+            return
+        }
+
+        cb(...args)
+        shouldWait = true
+        setTimeout(timeoutFunc, delay)
+    }
+}
+
+
+## 63. What is Polyfill?
+  - Polyfill is a way of providing futuristic API not available in browser.
+  - We might need to do the native prototype modifications, so that we can get a feature/API.
+  - There might be situations when we have a method not supported for specific browsers, in such cases we can use polyfills.
 
 
 
@@ -896,6 +946,33 @@ Authentication is the process of verifying a user’s identity while authorizati
 Session management can be done in node.js by using the express-session module. 
 It helps in saving the data in the key-value form. In this module, the session data is not saved in the cookie itself, just the session ID.
 
+## 22. What is Middleware in Node js.
+- Middleware in NodeJS refers to a software design pattern where functions are invoked sequentially in a pipeline to handle requests and responses in web applications. 
+- It acts as an intermediary layer between the client and the server, allowing for modularization of request processing logic and enabling cross-cutting concerns such as authentication, logging, error handling, and data transformation.
+
+1) Middleware Functions
+2) Express.js Middleware
+3) Error Handling Middleware
+
+## 23. What is API and Types of API?
+- API which stands for Application Programming interface is an interface between different software so that they can interact with each other very smoothly. 
+- API is used to access different software services, retrieve data, and automate processes across different industries.
+
+- An application programming interface is software that allows two applications to talk to each other.
+- Application programming interface helps in data monetization.
+
+1) SOAP: 
+- SOAP is the Simple Object Access Protocol, a messaging standard defined by the World Wide Web Consortium.
+- SOAP uses an XML data format to declare its request and response messages, relying on XML Schema and other technologies to enforce the structure of its payloads.
+
+2) REST API's:
+- REST can use XML, but is equally at home with JSON, HTML, and even plain text. 
+- REST is a set of best practices that can be more fluid.
+
+3) Composite API's
+- Composite APIs are a design approach to batch API requests sequentially into a single API call. 
+- Rather than multiple round trips to a server, a client can make one API request with a chain of calls and receive one response.
+
 
 Whenever an async task completes in libuv, at what point does Node decide to run the associated callback function on the call stack?
 
@@ -906,17 +983,24 @@ If two async tasks such as setTimeout and readFile complete at the same time, ho
 1) What is dependency injection
 2) What is CURL
 3) What is different between call back function and promises
-4) Why we can no use html,text in node?
+4) Why we can not use html,text in node?
 5) What are the different types of API in node js
 6) States of promises.
 
 
 
 
+  - Differnt Data types in mongoDB
+    - Array
+    - Bson
+    - int32
+    - int64
+    - string
+    - undefined
+    - null
+    - boolean
 
 
-
-  
   - this keyword:-
     - In JavaScript, the this keyword refers to an object.
     - In an object method, this refers to the object.
